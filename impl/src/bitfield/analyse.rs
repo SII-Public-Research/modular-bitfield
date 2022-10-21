@@ -1,30 +1,19 @@
 use super::{
-    config::{
-        Config,
-        ReprKind,
-    },
-    field_config::{
-        FieldConfig,
-        SkipWhich,
-    },
+    config::{Config, ReprKind},
+    field_config::{FieldConfig, SkipWhich},
     BitfieldStruct,
 };
 use crate::errors::CombineError;
 use core::convert::TryFrom;
 use quote::quote;
 use std::collections::HashMap;
-use syn::{
-    self,
-    parse::Result,
-    spanned::Spanned as _,
-};
+use syn::{self, parse::Result, spanned::Spanned as _};
 
 impl TryFrom<(&mut Config, syn::ItemStruct)> for BitfieldStruct {
     type Error = syn::Error;
 
     fn try_from((config, item_struct): (&mut Config, syn::ItemStruct)) -> Result<Self> {
         Self::ensure_has_fields(&item_struct)?;
-        Self::ensure_no_generics(&item_struct)?;
         Self::extract_attributes(&item_struct.attrs, config)?;
         Self::analyse_config_for_fields(&item_struct, config)?;
         config.ensure_no_conflicts()?;
@@ -39,18 +28,7 @@ impl BitfieldStruct {
             return Err(format_err_spanned!(
                 unit,
                 "encountered invalid bitfield struct without fields"
-            ))
-        }
-        Ok(())
-    }
-
-    /// Returns an error if the input struct is generic.
-    fn ensure_no_generics(item_struct: &syn::ItemStruct) -> Result<()> {
-        if !item_struct.generics.params.is_empty() {
-            return Err(format_err_spanned!(
-                item_struct,
-                "encountered invalid generic bitfield struct"
-            ))
+            ));
         }
         Ok(())
     }
