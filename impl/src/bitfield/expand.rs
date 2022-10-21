@@ -59,7 +59,7 @@ impl BitfieldStruct {
                 }
             };
 
-            #[allow(clippy::identity_op)]
+            #[allow(clippy::identity_op, unused_braces)]
             impl #impl_generics ::modular_bitfield::Specifier for #ident #ty_generics
             #where_clause
             {
@@ -398,6 +398,7 @@ impl BitfieldStruct {
                 [(); #actual_bits]: ::modular_bitfield::private::#trait_check_ident
             ));
             quote_spanned!(span=>
+                #[allow(unused_braces)]
                 impl #impl_generics ::core::convert::From<#prim> for #ident #ty_generics
                 #where_clause
                 {
@@ -407,6 +408,7 @@ impl BitfieldStruct {
                     }
                 }
 
+                #[allow(unused_braces)]
                 impl #impl_generics ::core::convert::From<#ident #ty_generics> for #prim
                 #where_clause
                 {
