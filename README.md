@@ -1,5 +1,7 @@
 # Modular Bitfields for Rust
 
+Note: this crate was forked ([the original](https://crates.io/crates/modular-bitfield)) [per request of the original maintainer](https://github.com/Robbepop/modular-bitfield/issues/87#issuecomment-1286863636).
+
 |   Continuous Integration  |  Documentation    |       Crates.io      |       LoC        |
 |:-------------------------:|:-----------------:|:--------------------:|:----------------:|
 | [![GHActions][C1]][C2]    | [![docs][A1]][A2] | [![crates][B1]][B2]  | [![loc][D1]][D2] |
